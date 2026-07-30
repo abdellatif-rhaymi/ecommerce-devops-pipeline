@@ -1,1 +1,14 @@
+# Build
 /build/
+target/
+*.war
+*.class
+tomcat_webapps/
+
+# IDE
+.settings/
+.classpath
+.project
+
+# OS
+.DS_Store

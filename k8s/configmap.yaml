@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecommerce-config
+  namespace: ecommerce-ns
+data:
+  # Configuration MySQL
+  MYSQL_DATABASE: "ecommerce"
+  MYSQL_HOST: "mysql-service"
+  MYSQL_PORT: "3306"
+  
+  # Configuration Application
+  APP_ENV: "production"
+  DB_URL: "jdbc:mysql://mysql-service:3306/ecommerce"
