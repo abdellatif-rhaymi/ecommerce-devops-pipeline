@@ -46,9 +46,16 @@ Les métriques du cluster et de l'application sont collectées par **Prometheus*
 
 ## ⚡ Optimisation du pipeline
 
-Le pipeline a été **optimisé** (mise en cache des dépendances Maven, parallélisation, étapes conditionnelles) : le graphique ci-dessous compare la durée d'exécution **avant / après** optimisation.
+Le pipeline a été **optimisé** pour réduire son temps d'exécution :
+- **Parallélisation** des étapes de build et de tests (*Build cached · Unit Tests · Unit Tests H2* exécutés en parallèle)
+- **Mise en cache** des dépendances Maven (build incrémental)
+- **Déploiement incrémental** vers Tomcat
 
-![Optimisation du pipeline](docs/10_pipeline_optimization.png)
+![Pipeline optimisé (Jenkins)](docs/11_pipeline_optimized.png)
+
+Le graphique ci-dessous compare la durée d'exécution **avant / après** optimisation :
+
+![Comparaison avant / après optimisation](docs/10_pipeline_optimization.png)
 
 ## 🛒 L'application déployée
 
