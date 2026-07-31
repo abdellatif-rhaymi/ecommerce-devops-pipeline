@@ -12,18 +12,13 @@ Le code poussé sur **GitHub** déclenche un pipeline **Jenkins** qui build l'ap
 
 ## 🔄 Le pipeline, étape par étape
 
-### 1️⃣ GitHub — Gestion du code source
-Dépôt public hébergeant l'application (Servlets, JSP, DAO), avec une convention **Git Flow** simplifiée : `main` (version stable déployable) et `develop` (intégration des nouvelles fonctionnalités).
-
-![Dépôt GitHub](docs/01_github_repo.png)
-
-### 2️⃣ Jenkins — Intégration continue
+### 1️⃣ Jenkins — Intégration continue
 Pipeline déclaratif (`Jenkinsfile`) en 7 étapes :
 `Checkout → Build (Maven) → Tests unitaires → Tests d'intégration → Rapport de couverture (JaCoCo) → Analyse SonarQube → Déploiement Tomcat`
 
 ![Pipeline Jenkins](docs/02_jenkins_pipeline.png)
 
-### 3️⃣ SonarQube — Analyse de qualité
+### 2️⃣ SonarQube — Analyse de qualité
 Chaque build est analysé par SonarQube : bugs, vulnérabilités, code smells, duplication et couverture. Le **quality gate est au vert (Passed)**.
 
 ![SonarQube — Quality Gate Passed](docs/03_sonarqube_passed.png)
@@ -32,19 +27,19 @@ Couverture de code mesurée par **JaCoCo** :
 
 ![Couverture JaCoCo](docs/04_coverage_jacoco.png)
 
-### 4️⃣ Docker — Conteneurisation
+### 3️⃣ Docker — Conteneurisation
 L'application est packagée via un **Dockerfile multi-stage** (build Maven → runtime Tomcat, avec `HEALTHCHECK`), puis l'image est publiée sur **Docker Hub**.
 
 ![Image sur Docker Hub](docs/05_docker_hub.png)
 
-### 5️⃣ Kubernetes — Orchestration
+### 4️⃣ Kubernetes — Orchestration
 Déploiement sur **Minikube** à l'aide de manifestes complets : `namespace`, `configmap`, `secret`, base **MySQL** (`deployment` + `pvc` + `service`), application (`deployment` + `service`) et `ingress`.
 
 | Manifeste de déploiement | Ressources déployées (`kubectl get all`) |
 |:---:|:---:|
 | ![deployment.yaml](docs/06_k8s_deployment.png) | ![kubectl get all](docs/07_k8s_get_all.png) |
 
-### 6️⃣ Prometheus & Grafana — Supervision
+### 5️⃣ Prometheus & Grafana — Supervision
 Les métriques du cluster et de l'application sont collectées par **Prometheus** (déployé via Helm) et visualisées dans des **tableaux de bord Grafana** (CPU, mémoire, disponibilité, alertes).
 
 ![Dashboard Grafana](docs/08_grafana_dashboard.png)
